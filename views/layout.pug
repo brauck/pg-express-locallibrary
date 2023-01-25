@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='Shortcut Icon', href='/images/icon.jpg')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav
+      a(href="/catalog") HOME
+      br
+      a(href="/catalog/books") Books
+      br
+      a(href="/catalog/bookinstances") Bookinstances
+      br
+      a(href="/catalog/authors") Authors
+      br
+      a(href="/catalog/genres") Genres
+      hr
+
+      a(href="/catalog/author/create") Create new author
+      br
+      a(href="/catalog/genre/create") Create new genre
+      br
+      a(href="/catalog/book/create") Create new book
+      br
+      a(href="/catalog/bookinstance/create") Create new book instance (copy)
+      hr
+    block content
+
