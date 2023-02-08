@@ -1,9 +1,11 @@
+const env = process.env;
+
 module.exports = {
   config_db: {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'populate',
-    password: '123',
-    port: 5432
+    user: env.DB_USER,
+    host: env.DB_HOST,
+    database: env.DB_NAME,
+    password: env.DB_PASSWORD,
+    port: env.DB_PORT
   }
 };
