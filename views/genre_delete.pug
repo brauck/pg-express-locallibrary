@@ -14,7 +14,7 @@ block content
       dl
       each book in genre_books
         dt
-          a(href=book.url) #{book.title}
+          a(href=bookUrl(book.id)) #{book.title}
         dd #{book.summary}
 
   else
@@ -22,6 +22,6 @@ block content
 
     form(method='POST' action='')
       div.form-group
-        input#genreid.form-control(type='hidden',name='genreid', required='true', value=genre._id )
+        input#genreid.form-control(type='hidden',name='genreid', required='true', value=genre.id )
 
       button.btn.btn-primary(type='submit') Delete

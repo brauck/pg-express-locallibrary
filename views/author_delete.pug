@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1 #{title}: #{author.name}
-  p= author.lifespan
+  h1 #{title}: #{author.family_name}, #{author.first_name}
+  p= lifespan(author)
 
   if author_books.length
 
@@ -15,7 +15,7 @@ block content
       dl
       each book in author_books
         dt
-          a(href=book.url) #{book.title}
+          a(href=bookUrl(book.id)) #{book.title}
         dd #{book.summary}
 
   else
@@ -23,7 +23,7 @@ block content
 
     form(method='POST' action='')
       div.form-group
-        input#authorid.form-control(type='hidden',name='authorid', required='true', value=author._id )
+        input#authorid.form-control(type='hidden',name='authorid', required='true', value=author.id )
 
       button.btn.btn-primary(type='submit') Delete
 

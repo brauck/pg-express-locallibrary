@@ -7,7 +7,7 @@ block content
     each book in book_list
       li
 
-        a(href=book_url(book)) #{book.title}
+        a(href=bookUrl(book.id)) #{book.title}
         |  (#{book.family_name}, #{book.first_name})
 
     else

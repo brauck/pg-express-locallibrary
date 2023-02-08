@@ -6,7 +6,7 @@ block content
   ul
     each genre in genre_list
       li
-        a(href=genre_url(genre)) #{genre.name}
+        a(href=genreUrl(genre.id)) #{genre.name}
         //-|  (#{author.date_of_birth} - #{author.date_of_death})
         //-|  (#{author.date_of_birth_formatted} - #{author.date_of_death_formatted})
 

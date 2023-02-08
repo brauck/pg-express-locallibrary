@@ -6,7 +6,7 @@ block content
   ul
     each val in bookinstance_list
       li
-        a(href=book_url(val)) #{val.title} : #{val.imprint} -
+        a(href=bookinstanceUrl(val.id)) #{val.title} : #{val.imprint} -
         if val.current_status=='Available'
           span.text-success #{val.current_status}
         else if val.current_status=='Maintenance'
@@ -14,7 +14,7 @@ block content
         else
           span.text-warning #{val.current_status}
         if val.current_status!='Available'
-          span  (Due: #{val.due_back} )
+          span  (Due: #{toYYYMMDDformat(val.due_back)} )
 
     else
       li There are no book copies in this library.

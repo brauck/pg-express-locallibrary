@@ -6,7 +6,7 @@ block content
   ul
     each author in author_list
       li
-        a(href=author_url(author)) #{author.family_name}, #{author.first_name}
+        a(href=authorUrl(author.id)) #{author.family_name}, #{author.first_name}
         |  (#{lifespan(author)})
         //-|  (#{author.date_of_birth_formatted} - #{author.date_of_death_formatted})
         //|  #{author.lifespan}

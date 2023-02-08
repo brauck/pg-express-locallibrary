@@ -11,7 +11,7 @@ block content
     dl
       each book in genre_books
         dt
-          a(href=book.url) #{book.title}
+          a(href=bookUrl(book.id)) #{book.title}
         dd #{book.summary}
 
       else
@@ -19,7 +19,7 @@ block content
 
   hr
   p
-    a(href=genre.url+'/delete') Delete Genre
+    a(href=genreUrl(genre.id)+'/delete') Delete Genre
   p
-    a(href=genre.url+'/update') Update Genre
+    a(href=genreUrl(genre.id)+'/update') Update Genre
 

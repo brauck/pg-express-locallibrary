@@ -1,13 +1,13 @@
 const { Pool } = require('pg');
-const { config_db, schema, author, genre, book, bookinstance } = require('../config');
+const { config_db } = require('../config');
 const pool = new Pool(config_db);
 
-const schema_init = `CREATE SCHEMA ${schema};`;
+const schema_init = `CREATE SCHEMA models;`;
 
 const status = `CREATE TYPE status AS ENUM ('Available', 'Maintenance', 'Loaned', 'Reserved');`;
 
 const author_table = `
-  CREATE TABLE ${author}(
+  CREATE TABLE models.author(
     id            SERIAL PRIMARY KEY,
     first_name    TEXT   NOT NULL,
     family_name   TEXT   NOT NULL,
@@ -17,30 +17,37 @@ const author_table = `
 `;
 
 const genre_table = `
-  CREATE TABLE ${genre}(
+  CREATE TABLE models.genre(
     id   SERIAL PRIMARY KEY,
     name TEXT   NOT NULL UNIQUE
   );
 `;
 
 const book_table = `
-   CREATE TABLE ${book}(
+   CREATE TABLE models.book(
     id      SERIAL PRIMARY KEY,
     title   TEXT   NOT NULL,
-    author  INT    NOT NULL references ${author}(id),
+    author  INT    NOT NULL REFERENCES models.author(id),
     summary TEXT   NOT NULL,
-    isbn    TEXT   NOT NULL,
-    genre   TEXT[]
+    isbn    TEXT   NOT NULL
   );
 `;
 
 const bookinstance_table = `
-  CREATE TABLE ${bookinstance}(
+  CREATE TABLE models.bookinstance(
     id             SERIAL PRIMARY KEY,
-    book           INT    NOT NULL references ${book}(id),
+    book           INT    NOT NULL REFERENCES models.book(id),
     imprint        TEXT   NOT NULL,
     due_back       DATE,
     current_status status DEFAULT 'Maintenance'
+  );
+`;
+
+const book_genre_table = `
+  CREATE TABLE models.book_genre(
+    book_id  INT REFERENCES models.book(id),
+    genre_id INT REFERENCES models.genre(id),
+    PRIMARY KEY (book_id, genre_id)
   );
 `;
 
@@ -57,10 +64,11 @@ const client = await pool.connect();
     await client.query(genre_table);
     await client.query(book_table); 
     await client.query(bookinstance_table);
+    await client.query(book_genre_table);
     await client.query('COMMIT');
-  } catch (e) {
+  } catch (err) {
     await client.query('ROLLBACK');
-    throw e;
+    throw err;
   } finally {
     client.release();
     pool.end();

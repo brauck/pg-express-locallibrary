@@ -3,7 +3,7 @@ extends layout
 block content
   h1 #{title}: #{book.title}
 
-  if book_bookinstances.length
+  if book_instances.length
 
     p #[strong Delete the following bookinstances before attempting to delete this book.]
 
@@ -12,10 +12,10 @@ block content
       h4 Bookinstances
 
       ul
-      each bookinstance in book_bookinstances
+      each bookinstance in book_instances
         li
           p #[strong ID:]
-            a(href=bookinstance.url) #{bookinstance._id}
+            a(href=bookinstanceUrl(bookinstance.id)) #{bookinstance.id}
 
 
   else
@@ -23,7 +23,7 @@ block content
 
     form(method='POST' action='')
       div.form-group
-        input#bookid.form-control(type='hidden',name='bookid', required='true', value=book._id )
+        input#bookid.form-control(type='hidden',name='bookid', required='true', value=book.id )
 
       button.btn.btn-primary(type='submit') Delete
 
